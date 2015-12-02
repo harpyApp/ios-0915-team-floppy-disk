@@ -39,7 +39,7 @@
     [super viewDidLoad];
 //     self.navigationController.navigationBar.barStyle = UIStatusBarStyleLightContent;
     
-//    self.navigationController.navigationBar.backgroundColor = [UIColor yellowColor];
+    self.navigationController.navigationBar.backgroundColor = [UIColor yellowColor];
     
 //    UIImage *img = [UIImage imageNamed:@"backround_cropped"];
 //    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -49,13 +49,18 @@
 //    self.navigationItem.titleView = imgView;
     
     
-//    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"backround_cropped"]];
+//    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fbackround_cropped"]];
 
+  
+    
     
 //
-    self.navigationController.navigationBar.translucent = NO;
+//    self.navigationController.navigationBar.translucent = NO;
+//
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"backround_cropped"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backround_cropped"]]];
+    
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"backround_cropped"] forBarMetrics:UIBarMetricsDefault];
     
     self.locationManager = [CLLocationManager sharedManager];
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;

@@ -37,6 +37,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationController.navigationBar.translucent = NO;
+    [self.navigationController.navigationBar setTitleTextAttributes:@{ NSFontAttributeName:
+                                                                           [UIFont fontWithName:@"SFUIDisplay-Semibold" size:20.0],
+                                                                       NSForegroundColorAttributeName:[UIColor whiteColor]
+                                                                       }];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"backround_cropped"] forBarMetrics:UIBarMetricsDefault];
+    
      self.navigationController.navigationBar.barStyle = UIStatusBarStyleLightContent;
     
     self.locationManager = [CLLocationManager sharedManager];

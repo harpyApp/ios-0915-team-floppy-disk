@@ -40,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UIView *underlineView;
 //@property (nonatomic, strong) HRPSignupVC *sendToSignupVC;
 @property (strong, nonatomic) HRPParseNetworkService *parseService;
+@property (strong, nonatomic) NSString *phoneType;
 
 @end
 
@@ -71,6 +72,18 @@
     //        [view removeConstraints: self.view.constraints];
     //        view.translatesAutoresizingMaskIntoConstraints = NO;
     //    }
+    if ([[UIScreen mainScreen] bounds].size.width == 375.0f)
+    {
+        self.phoneType = @"6";
+    }
+    else if ([[UIScreen mainScreen] bounds].size.width == 414.0f)
+    {
+        self.phoneType = @"6s";
+    }
+    else
+    {
+        self.phoneType = @"cropped";
+    }
 }
 
 - (void)setHiddenStatus
@@ -280,7 +293,7 @@
                                    delay:0
                                  options:UIViewAnimationCurveLinear
                               animations:^{
-                                  [self.underline setCenter: CGPointMake(27, 0)];
+                                  [self.underline setCenter: CGPointMake(27, 0)]; //the underline should be set to the center of the words, not by the points
                               }
                               completion:nil];
 }

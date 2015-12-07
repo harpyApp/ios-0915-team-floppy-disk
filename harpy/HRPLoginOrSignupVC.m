@@ -136,7 +136,7 @@
     self.email = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 275, fieldHeight + 8)];
     self.email.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"EMAIL" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     self.email.returnKeyType = UIReturnKeyNext;
-    [self.email setCenter: CGPointMake(self.view.center.x, self.email.center.y + 15)]; // !!
+    [self.email setCenter: CGPointMake(self.view.center.x, self.email.center.y + (fieldHeight / 2))]; // !! 15
 }
 
 - (void)setupNewUsernameWithFieldHeight:(int)fieldHeight
@@ -144,7 +144,7 @@
     self.userNameNew = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 275, fieldHeight + 8)];
     self.userNameNew.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"USERNAME" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     self.userNameNew.returnKeyType = UIReturnKeyNext;
-    [self.userNameNew setCenter: CGPointMake(self.view.center.x, self.userNameNew.center.y + 65)]; // !!
+    [self.userNameNew setCenter: CGPointMake(self.view.center.x, self.userNameNew.center.y + (fieldHeight * 2) + 5)]; // !! 65
 }
 
 - (void)setupNewPasswordWithFieldHeight:(int)fieldHeight
@@ -153,7 +153,7 @@
     self.passwordNew.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"PASSWORD" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     self.passwordNew.returnKeyType = UIReturnKeyNext;
     self.passwordNew.secureTextEntry = YES;
-    [self.passwordNew setCenter: CGPointMake(self.view.center.x, self.passwordNew.center.y + 115)]; // !!
+    [self.passwordNew setCenter: CGPointMake(self.view.center.x, self.passwordNew.center.y + (fieldHeight * 3) + 25)]; // !! 115
 }
 
 - (void)setupConfirmPasswordnameWithFieldHeight:(int)fieldHeight
@@ -162,7 +162,7 @@
     self.passwordConfirm.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"CONFIRM PASSWORD" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     self.passwordConfirm.returnKeyType = UIReturnKeyGo;
     self.passwordConfirm.secureTextEntry = YES;
-    [self.passwordConfirm setCenter: CGPointMake(self.view.center.x, self.passwordConfirm.center.y + 165)]; // !!
+    [self.passwordConfirm setCenter: CGPointMake(self.view.center.x, self.passwordConfirm.center.y + (fieldHeight * 4) + 45)]; // !! 165
 }
 
 - (void)setupSignupButton

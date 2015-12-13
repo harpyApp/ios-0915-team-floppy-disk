@@ -59,9 +59,6 @@
     
     self.navigationItem.hidesBackButton = YES;  // We do a custom image for the back button on the post preview VC
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
-    [self.view addGestureRecognizer:tap];
-    
 //    self.navigationController.navigationBar.backIndicatorImage = [UIImage new];
 //    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = [UIImage new];
 //    
@@ -294,32 +291,38 @@
 
 - (IBAction)cellPlayButtonTapped:(UIButton *)sender {
     
-    CGFloat musicPlayerHeight = self.musicView.frame.size.height;
-    self.tableviewBottom.constant = musicPlayerHeight;
-    self.musicviewBottom.constant = 0;
-    [self.view setNeedsUpdateConstraints];
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         [self.view layoutIfNeeded];
-                     } completion:nil];
-    
-    NSIndexPath *indexPath = [self.songTableView indexPathForCell:(UITableViewCell *)[[[[[sender superview] superview] superview] superview] superview]];
-    HRPTrack *trackAtCell = self.filteredSongArray[indexPath.row];
-    self.playerSongLabel.text = trackAtCell.songTitle;
-    self.playerArtistLabel.text = trackAtCell.artistName;
-    self.playerCoverView.image = [UIImage imageNamed:@"white_pause"];
-    self.playStatusLabel.text = @"Playing";
-    
-    [self handleNewSession];
-    NSString *urlString = [NSString stringWithFormat:trackAtCell.spotifyURI];
-    NSURL *url = [NSURL URLWithString:urlString];
-    //NSURL *url = trackAtCell.spotifyURI;
-    
-    [self.player playURIs:@[ url ] fromIndex:0 callback:^(NSError *error) {
-        NSLog(@"%@", error);
+    if (self.player.isPlaying == NO) {
+        CGFloat musicPlayerHeight = self.musicView.frame.size.height;
+        self.tableviewBottom.constant = musicPlayerHeight;
+        self.musicviewBottom.constant = 0;
+        [self.view setNeedsUpdateConstraints];
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             [self.view layoutIfNeeded];
+                         } completion:nil];
         
-    }];
-    
+        NSIndexPath *indexPath = [self.songTableView indexPathForCell:(UITableViewCell *)[[[[[sender superview] superview] superview] superview] superview]];
+        HRPTrack *trackAtCell = self.filteredSongArray[indexPath.row];
+        self.playerSongLabel.text = trackAtCell.songTitle;
+        self.playerArtistLabel.text = trackAtCell.artistName;
+        self.playerCoverView.image = [UIImage imageNamed:@"white_pause"];
+        self.playStatusLabel.text = @"Playing";
+        
+        [self handleNewSession];
+        NSString *urlString = [NSString stringWithFormat:trackAtCell.spotifyURI];
+        NSURL *url = [NSURL URLWithString:urlString];
+        //NSURL *url = trackAtCell.spotifyURI;
+        
+        [self.player playURIs:@[ url ] fromIndex:0 callback:^(NSError *error) {
+            NSLog(@"%@", error);
+        }];
+        [sender setImage:[UIImage imageNamed:@"black_stop"] forState:UIControlStateNormal];
+    } else if (self.player.isPlaying == YES) {
+        [self.player setIsPlaying:!self.player.isPlaying callback:nil];
+        [sender setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+        self.playStatusLabel.text = @"Paused";
+        self.playerCoverView.image = [UIImage imageNamed:@"white_play"];
+    }
 }
 
 -(void)cellPostButtonTapped:(UIButton *)sender {

@@ -92,7 +92,7 @@
         {
             self.userPosts = objects;
             [self.tableviewUserProfile reloadData];
-            NSLog(@"PARSE POSTS: %@", self.userPosts);
+            //NSLog(@"PARSE POSTS: %@", self.userPosts);
         }
         else
         {

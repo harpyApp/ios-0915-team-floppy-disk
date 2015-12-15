@@ -15,7 +15,7 @@
 #import <MapKit/MapKit.h>
 @import GoogleMaps;
 
-@interface HYPMapsVC () <GMSMapViewDelegate>
+@interface HYPMapsVC () <GMSMapViewDelegate, UITabBarControllerDelegate, UITabBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *defaultMarkerImage;
 @property (nonatomic, strong) GMSMapView *mapView;
@@ -45,6 +45,8 @@
     self.locationManager.delegate = self;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionUpdatedNotification:) name:@"sessionUpdated" object:nil];
+    
+    self.tabBarController.delegate = self;
     
     self.mapView.settings.scrollGestures = YES;
     self.mapView.delegate = self;
@@ -81,18 +83,18 @@
                  [self.modalView removeFromSuperview];
                  
                  self.parsePosts = objects;
-                 NSLog(@"THERE ARE %lu PARSE POSTS.", self.parsePosts.count);
+                 //NSLog(@"THERE ARE %lu PARSE POSTS.", self.parsePosts.count);
                  
                  for (NSUInteger i = 0; i < self.parsePosts.count; i++)
                  {
                      NSDictionary *HRPPosts = self.parsePosts[i];
-                     NSLog(@"POSTED SONG: %@", HRPPosts[@"songTitle"]);
+                     //NSLog(@"POSTED SONG: %@", HRPPosts[@"songTitle"]);
                      
                      PFGeoPoint *HRPGeoPoint = HRPPosts[@"locationGeoPoint"];
-                     NSLog(@"geoPointString %f, %f", HRPGeoPoint.latitude, HRPGeoPoint.longitude);
+                     //NSLog(@"geoPointString %f, %f", HRPGeoPoint.latitude, HRPGeoPoint.longitude);
                      
                      CLLocationCoordinate2D postCoordinate = CLLocationCoordinate2DMake(HRPGeoPoint.latitude, HRPGeoPoint.longitude);
-                     NSLog(@"postCoordinate %f, %f", postCoordinate.latitude, postCoordinate.longitude);
+                     //NSLog(@"postCoordinate %f, %f", postCoordinate.latitude, postCoordinate.longitude);
                      
                      GMSMarker *marker = [[GMSMarker alloc] init];
                      marker.icon = [GMSMarker markerImageWithColor:[UIColor spyroDiscoDance]];
@@ -110,6 +112,22 @@
 }
 
 #pragma mark - Action Methods
+
+
+#pragma mark - UITabBarControllerDelegate
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    NSLog(@"tabBarController %@ viewController %@", tabBarController, viewController);
+    NSLog(@"Selected INDEX OF TAB-BAR ==> %lu", (unsigned long)tabBarController.selectedIndex);
+}
+
+#pragma mark - UITabBarDelegate
+
+-(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    NSLog(@"tabBar %@ item %@", tabBar, item);
+}
 
 #pragma mark - CLLocationManagerDelegate
 
